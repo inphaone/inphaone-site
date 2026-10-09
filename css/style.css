@@ -63,6 +63,22 @@ p { margin: 0; }
 .g-cyan { filter: sepia(1) hue-rotate(150deg) saturate(4) brightness(0.8); mix-blend-mode: screen; opacity: 0.7; transform: translateX(6px); clip-path: inset(70% 0 18% 0); }
 .g-red { filter: sepia(1) hue-rotate(-40deg) saturate(4) brightness(0.8); mix-blend-mode: screen; opacity: 0.6; transform: translateX(-8px); clip-path: inset(82% 0 8% 0); }
 .g-tear { filter: saturate(1.2) contrast(1.25) brightness(1.05); transform: translateX(22px); clip-path: inset(64% 0 33% 0); }
+.g-slice { filter: saturate(1.6) contrast(1.4) brightness(1.15) hue-rotate(-12deg); opacity: 0; clip-path: inset(56% 0 41% 0); }
+
+/* banner motion: colour drift between bursts, a signal burst every 5 s */
+.g-cyan  { animation: b-cyan 5s steps(1) infinite, hue-cyan 6s ease-in-out infinite alternate, sway 3.4s ease-in-out infinite alternate; }
+.g-red   { animation: b-red 5s steps(1) infinite, hue-red 7s ease-in-out infinite alternate; }
+.g-tear  { animation: b-tear 5s steps(1) infinite; }
+.g-slice { animation: b-slice 5s steps(1) infinite; }
+.hero h1 { animation: b-head 5s steps(1) infinite; }
+@keyframes b-cyan { 0%, 86%, 96%, 100% { transform: translateX(6px); clip-path: inset(70% 0 18% 0); } 88% { transform: translateX(-24px); clip-path: inset(58% 0 30% 0); } 90% { transform: translateX(30px); clip-path: inset(76% 0 14% 0); } 92% { transform: translateX(-10px); clip-path: inset(66% 0 26% 0); } 94% { transform: translateX(18px); clip-path: inset(72% 0 20% 0); } }
+@keyframes b-red { 0%, 86%, 96%, 100% { transform: translateX(-8px); clip-path: inset(82% 0 8% 0); } 87% { transform: translateX(26px); clip-path: inset(60% 0 32% 0); } 89% { transform: translateX(-34px); clip-path: inset(86% 0 6% 0); } 91% { transform: translateX(12px); clip-path: inset(54% 0 40% 0); } 93% { transform: translateX(-20px); clip-path: inset(78% 0 12% 0); } }
+@keyframes b-tear { 0%, 86%, 96%, 100% { transform: translateX(22px); clip-path: inset(64% 0 33% 0); } 88% { transform: translateX(-40px); clip-path: inset(52% 0 44% 0); } 90% { transform: translateX(48px); clip-path: inset(74% 0 22% 0); } 92% { transform: translateX(-16px); clip-path: inset(60% 0 37% 0); } 94% { transform: translateX(30px); clip-path: inset(80% 0 16% 0); } }
+@keyframes b-slice { 0%, 87%, 95%, 100% { opacity: 0; } 88% { opacity: 1; transform: translateX(36px); clip-path: inset(56% 0 41% 0); } 90% { opacity: 1; transform: translateX(-28px); clip-path: inset(84% 0 12% 0); } 92% { opacity: 0; } 93% { opacity: 1; transform: translateX(20px); clip-path: inset(68% 0 29% 0); } }
+@keyframes b-head { 0%, 87%, 95%, 100% { transform: none; text-shadow: 3px 0 0 var(--red), -3px 0 0 var(--blue); } 88% { transform: translateX(5px); text-shadow: 9px 0 0 rgba(255,50,90,0.8), -9px 0 0 rgba(50,210,255,0.8); } 90% { transform: translateX(-4px); text-shadow: -6px 0 0 rgba(255,50,90,0.8), 6px 0 0 rgba(50,210,255,0.8); } 93% { transform: translateX(2px); text-shadow: 5px 0 0 rgba(255,50,90,0.7), -5px 0 0 rgba(50,210,255,0.7); } }
+@keyframes hue-cyan { from { filter: sepia(1) hue-rotate(150deg) saturate(4) brightness(0.8); } to { filter: sepia(1) hue-rotate(215deg) saturate(4.5) brightness(0.85); } }
+@keyframes hue-red { from { filter: sepia(1) hue-rotate(-40deg) saturate(4) brightness(0.8); } to { filter: sepia(1) hue-rotate(-85deg) saturate(4.5) brightness(0.85); } }
+@keyframes sway { from { translate: -7px 0; } to { translate: 9px 1px; } }
 .hero .scan { background: repeating-linear-gradient(0deg, rgba(0,0,0,0.26) 0px, rgba(0,0,0,0.26) 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0) 3px); }
 .hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,6,7,0.35) 0%, rgba(5,6,7,0) 30%, rgba(5,6,7,0) 70%, rgba(5,6,7,0.7) 100%); }
 .hero-text { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 40px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 32px; }
@@ -187,5 +203,5 @@ footer { border-top: 1px dashed var(--line); padding: 36px var(--gutter) 48px; d
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .eq span, .bot, .bot .arm, .caret, .v-track { animation: none; }
+  .eq span, .bot, .bot .arm, .caret, .v-track, .g, .hero h1 { animation: none; }
 }
