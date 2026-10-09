@@ -52,7 +52,7 @@
   (function () {
     var deck = $("deck"); if (!deck) return;
     var tracks = (S.tracks && S.tracks.length) ? S.tracks : [{ title: "NORTH STAR", meta: "Single 2024", spotify: "https://open.spotify.com/track/3OpiZ2tQIW1HNmsD6q7peV" }];
-    var idx = 0, ctl = null, ready = false, wantPlay = false, playing = false, lastPos = 0, lastDur = 0, loading = false;
+    var idx = 0, ctl = null, ready = false, wantPlay = false, playing = false, lastPos = 0, lastDur = 0, loading = false, tick = null;
     var btn = $("deck-play"), stateEl = $("deck-state"), titleEl = $("deck-title"), metaEl = $("deck-meta"), prog = $("deck-prog"), timeEl = $("deck-time");
     function uri(t) { var m = String(t.spotify).match(/(track|album|artist|playlist)\/([A-Za-z0-9]+)/); return m ? "spotify:" + m[1] + ":" + m[2] : t.spotify; }
     function mmss(ms) { var s = Math.max(0, Math.floor(ms / 1000)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
@@ -70,13 +70,15 @@
       window.onSpotifyIframeApiReady = function (API) {
         API.createController($("spotify-embed"), { uri: uri(tracks[idx]), width: "100%", height: 80 }, function (c) {
           ctl = c;
-          c.addListener("ready", function () { ready = true; loading = false; if (wantPlay) { wantPlay = false; c.play(); } });
+          c.addListener("ready", function () { ready = true; if (loading) { loading = false; if (wantPlay) { wantPlay = false; c.play(); } } else if (wantPlay) { wantPlay = false; c.play(); } });
           c.addListener("playback_update", function (e) {
             var d = e.data || {};
             var was = playing, nearEnd = lastDur && lastPos >= lastDur - 1500;
             if (!d.isBuffering) playing = !d.isPaused;
             var ended = was && d.isPaused && (nearEnd || (d.duration && d.position >= d.duration - 600));
-            lastPos = d.position || 0; lastDur = d.duration || 0;
+            loading = false;
+            lastPos = d.position || 0; lastDur = d.duration || lastDur;
+            clock();
             show();
             if (ended) { go(1, true); }
           });
@@ -86,13 +88,18 @@
       sc.onerror = function () { $("spotify-embed").innerHTML = ""; };
       document.head.appendChild(sc);
     }
+    function clock() {
+      clearInterval(tick);
+      if (playing) tick = setInterval(function () { lastPos = Math.min(lastDur || Infinity, lastPos + 250); show(); }, 250);
+    }
     function go(step, autoplay) {
-      idx = (idx + step + tracks.length) % tracks.length; lastPos = 0; lastDur = 0; playing = false; show();
-      if (ctl) { ready = false; loading = true; wantPlay = !!autoplay; ctl.loadUri(uri(tracks[idx])); setTimeout(function () { if (wantPlay && loading) { wantPlay = false; ctl.play(); } }, 1500); }
+      idx = (idx + step + tracks.length) % tracks.length; lastPos = 0; lastDur = 0; playing = false; clock(); show();
+      if (ctl) { loading = true; wantPlay = !!autoplay; ctl.loadUri(uri(tracks[idx])); setTimeout(function () { if (wantPlay && loading) { wantPlay = false; ctl.play(); } }, 1500); }
     }
     btn.addEventListener("click", function () {
       if (!ctl) { wantPlay = true; loadApi(); return; }
       if (!ready) { wantPlay = true; return; }
+      if (loading) { wantPlay = !wantPlay; return; }
       ctl.togglePlay();
     });
     $("deck-prev").addEventListener("click", function () { go(-1, playing); });
