@@ -105,9 +105,7 @@ main { max-width: 1160px; margin: 0 auto; padding: 0 var(--gutter); }
 .deck { border: 1px solid var(--edge); padding: 18px; display: flex; flex-direction: column; gap: 14px; background: var(--panel); }
 .deck-top { display: flex; justify-content: space-between; font-size: 12px; color: var(--dim); }
 .eq { display: flex; gap: 3px; align-items: flex-end; height: 48px; }
-.eq { height: 64px; }
-.eq span { flex: 1; background: #3a3933; transform-origin: 50% 100%; transform: scaleY(0.12); transition: transform 0.4s; }
-.deck.playing .eq span { animation: eq 0.9s ease-in-out infinite alternate; }
+.eq span { flex: 1; background: #3a3933; transform-origin: 50% 100%; animation: eq 0.9s ease-in-out infinite alternate; }
 .eq span:nth-child(-n+6) { background: var(--accent); }
 .eq span:nth-child(1) { height: 40%; animation-delay: 0s; }
 .eq span:nth-child(2) { height: 75%; animation-delay: -0.3s; }
@@ -123,15 +121,7 @@ main { max-width: 1160px; margin: 0 auto; padding: 0 var(--gutter); }
 .eq span:nth-child(12) { height: 70%; animation-delay: -0.65s; }
 @keyframes eq { 0% { transform: scaleY(0.25); } 100% { transform: scaleY(1); } }
 .deck-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
-.deck-title { font-family: var(--pixel); font-size: 44px; line-height: 0.95; color: var(--ink); }
-.deck-bar { height: 3px; background: #24241f; position: relative; }
-.deck-bar i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--accent); transition: width 0.25s linear; }
-.deck-play { min-width: 130px; justify-content: center; }
-.btn-ghost { font-family: var(--pixel); font-size: 24px; line-height: 1; min-height: 44px; padding: 8px 14px; background: transparent; color: var(--ink); border: 1px solid #4a4840; cursor: pointer; }
-.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-.deck-time { margin-left: auto; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
-.spotify-strip { min-height: 80px; }
-.spotify-strip iframe { width: 100%; height: 80px; border: 0; border-radius: 12px; display: block; }
+.deck iframe { width: 100%; height: 352px; border: 0; border-radius: 12px; display: block; }
 
 /* watch */
 .screen { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #000; border: 1px solid #22221f; }
@@ -215,5 +205,5 @@ footer { border-top: 1px dashed var(--line); padding: 36px var(--gutter) 48px; d
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .deck.playing .eq span, .bot, .bot .arm, .caret, .v-track, .hero.go .g, .hero.go h1 { animation: none; }
+  .eq span, .bot, .bot .arm, .caret, .v-track, .hero.go .g, .hero.go h1 { animation: none; }
 }

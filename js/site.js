@@ -48,61 +48,20 @@
   }
 
   /* listen */
-  /* listen: our deck drives Spotify's own compact player through its iFrame API */
-  (function () {
-    var deck = $("deck"); if (!deck) return;
-    var tracks = (S.tracks && S.tracks.length) ? S.tracks : [{ title: "NORTH STAR", meta: "Single 2024", spotify: "https://open.spotify.com/track/3OpiZ2tQIW1HNmsD6q7peV" }];
-    var idx = 0, ctl = null, ready = false, wantPlay = false, playing = false, lastPos = 0, lastDur = 0, loading = false;
-    var btn = $("deck-play"), stateEl = $("deck-state"), titleEl = $("deck-title"), metaEl = $("deck-meta"), prog = $("deck-prog"), timeEl = $("deck-time");
-    function uri(t) { var m = String(t.spotify).match(/(track|album|artist|playlist)\/([A-Za-z0-9]+)/); return m ? "spotify:" + m[1] + ":" + m[2] : t.spotify; }
-    function mmss(ms) { var s = Math.max(0, Math.floor(ms / 1000)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
-    function show() {
-      var t = tracks[idx];
-      titleEl.textContent = t.title; metaEl.textContent = "Inpha One · " + (t.meta || "");
-      deck.classList.toggle("playing", playing);
-      stateEl.textContent = playing ? "▶ now playing" : "❚❚ paused";
-      btn.textContent = playing ? "PAUSE ❚❚" : "PLAY ▶";
-      prog.style.width = lastDur ? Math.min(100, lastPos / lastDur * 100) + "%" : "0";
-      timeEl.textContent = mmss(lastPos) + (lastDur ? " / " + mmss(lastDur) : "");
-    }
-    function loadApi() {
-      if (window.__spotifyApiLoading) return; window.__spotifyApiLoading = true;
-      window.onSpotifyIframeApiReady = function (API) {
-        API.createController($("spotify-embed"), { uri: uri(tracks[idx]), width: "100%", height: 80 }, function (c) {
-          ctl = c;
-          c.addListener("ready", function () { ready = true; loading = false; if (wantPlay) { wantPlay = false; c.play(); } });
-          c.addListener("playback_update", function (e) {
-            var d = e.data || {};
-            var was = playing, nearEnd = lastDur && lastPos >= lastDur - 1500;
-            if (!d.isBuffering) playing = !d.isPaused;
-            var ended = was && d.isPaused && (nearEnd || (d.duration && d.position >= d.duration - 600));
-            lastPos = d.position || 0; lastDur = d.duration || 0;
-            show();
-            if (ended) { go(1, true); }
-          });
-        });
-      };
-      var sc = document.createElement("script"); sc.src = "https://open.spotify.com/embed/iframe-api/v1"; sc.async = true;
-      sc.onerror = function () { $("spotify-embed").innerHTML = ""; };
-      document.head.appendChild(sc);
-    }
-    function go(step, autoplay) {
-      idx = (idx + step + tracks.length) % tracks.length; lastPos = 0; lastDur = 0; playing = false; show();
-      if (ctl) { ready = false; loading = true; wantPlay = !!autoplay; ctl.loadUri(uri(tracks[idx])); setTimeout(function () { if (wantPlay && loading) { wantPlay = false; ctl.play(); } }, 1500); }
-    }
-    btn.addEventListener("click", function () {
-      if (!ctl) { wantPlay = true; loadApi(); return; }
-      if (!ready) { wantPlay = true; return; }
-      ctl.togglePlay();
-    });
-    $("deck-prev").addEventListener("click", function () { go(-1, playing); });
-    $("deck-next").addEventListener("click", function () { go(1, playing); });
-    if ("IntersectionObserver" in window) {
-      var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { loadApi(); io.disconnect(); } }, { rootMargin: "300px" });
-      io.observe(deck);
-    } else { loadApi(); }
-    show();
-  })();
+  var play = $("play-spotify");
+  if (play) play.addEventListener("click", function () {
+    var url = (S.links && S.links.spotify) || "https://open.spotify.com/artist/0F5VMlDz3p1ZcUj0ktYers";
+    var m = url.match(/open\.spotify\.com\/(artist|album|track|playlist)\/([A-Za-z0-9]+)/);
+    if (!m) { window.open(url, "_blank", "noopener"); return; }
+    var deck = $("deck");
+    var f = document.createElement("iframe");
+    f.src = "https://open.spotify.com/embed/" + m[1] + "/" + m[2] + "?utm_source=generator&theme=0";
+    f.title = "Inpha One on Spotify";
+    f.loading = "lazy";
+    f.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
+    deck.querySelector(".eq").replaceWith(f);
+    play.remove();
+  });
 
   /* watch: click to load YouTube in place */
   var v = S.video || {};

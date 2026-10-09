@@ -11,13 +11,6 @@ window.SITE = {
     headline: "NEW ALBUM · 2027"
   },
 
-  // CH 01 deck: songs the yellow player steps through (Spotify track links)
-  tracks: [
-    { title: "NORTH STAR", meta: "Single 2024", spotify: "https://open.spotify.com/track/3OpiZ2tQIW1HNmsD6q7peV" },
-    { title: "GREY DAYS",  meta: "Single 2024", spotify: "https://open.spotify.com/track/0bO1TQHN0vBCDiLoCm83M7" },
-    { title: "WASTELAND",  meta: "Single 2024", spotify: "https://open.spotify.com/track/2Vqql5QgUN6DbYYOizIVxQ" }
-  ],
-
   // CH 02 video. id is the part after youtu.be/
   video: {
     id: "W3c4xrvIa-o",
