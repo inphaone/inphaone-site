@@ -39,15 +39,6 @@
   }
 
   /* listen */
-  if (S.featured) {
-    if ($("feat-title")) $("feat-title").textContent = S.featured.title;
-    if ($("feat-meta")) $("feat-meta").textContent = S.featured.meta;
-  }
-  if (S.releases && $("releases")) {
-    $("releases").innerHTML = S.releases.map(function (r) {
-      return "<li><span>" + esc(r.title) + "</span><span class=\"muted\">" + esc(r.meta) + "</span></li>";
-    }).join("");
-  }
   var play = $("play-spotify");
   if (play) play.addEventListener("click", function () {
     var url = (S.links && S.links.spotify) || "https://open.spotify.com/artist/0F5VMlDz3p1ZcUj0ktYers";

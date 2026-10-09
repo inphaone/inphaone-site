@@ -11,21 +11,6 @@ window.SITE = {
     headline: "NEW ALBUM · 2027"
   },
 
-  // Featured release in CH 01
-  featured: {
-    title: "NORTH STAR",
-    meta: "Single · 2024"
-  },
-
-  // Tape index, newest first
-  releases: [
-    { title: "North Star",         meta: "Single 2024" },
-    { title: "Grey Days",          meta: "Single 2024" },
-    { title: "Wasteland",          meta: "Single 2024" },
-    { title: "Lights and Shapes",  meta: "EP 2023" },
-    { title: "In Phaneron of One", meta: "Album 2019" }
-  ],
-
   // CH 02 video. id is the part after youtu.be/
   video: {
     id: "W3c4xrvIa-o",
