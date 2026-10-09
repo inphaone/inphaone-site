@@ -5,13 +5,13 @@
 @font-face { font-family: "DM Mono"; src: url("../fonts/dm-mono-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
 
 :root {
-  --bg: #0a0a0b;
+  --bg: #0f1012;
   --ink: #e9e6df;
   --soft: #b9b4a8;
   --muted: #8b877e;
   --dim: #5f5c56;
-  --line: #222224;
-  --edge: #2a2a2c;
+  --line: #26272a;
+  --edge: #2e3034;
   --tint: #5e7c8a;
   --gutter: clamp(16px, 3vw, 40px);
   --mono: "DM Mono", ui-monospace, Menlo, Consolas, monospace;
@@ -35,12 +35,12 @@ p { margin: 0; }
 
 /* banner */
 .hero { position: relative; height: min(66rem, 100vh); min-height: 34rem; overflow: hidden; background: #000; }
-.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; filter: grayscale(1) contrast(1.25) brightness(0.85); }
-.hero .tint { position: absolute; inset: 0; background: var(--tint); mix-blend-mode: multiply; opacity: 0.85; }
-.hero .vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.7) 100%); }
+.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; filter: grayscale(1) contrast(1.2) brightness(1); }
+.hero .tint { position: absolute; inset: 0; background: var(--tint); mix-blend-mode: multiply; opacity: 0.72; }
+.hero .vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%); }
 .logo-wrap { position: absolute; left: 0; right: 0; bottom: 10%; display: flex; justify-content: center; padding: 0 var(--gutter); pointer-events: none; }
 /* the logo is written into the photo: white with a difference blend, scaled evenly, capped so it stays under the faces */
-.logo { margin: 0; width: min(100%, calc(min(66rem, 100vh) * 2.4)); mix-blend-mode: difference; }
+.logo { margin: 0; width: min(100%, calc(min(66rem, 100vh) * 2.4)); mix-blend-mode: difference; opacity: 0.85; }
 .logo img { width: 100%; height: auto; }
 .corner { position: absolute; bottom: 22px; }
 .bl { left: var(--gutter); color: var(--soft); }
@@ -57,7 +57,7 @@ main { padding: 0 var(--gutter); }
 .more { align-self: flex-end; }
 
 /* listen */
-.spotify { position: relative; height: 352px; border-radius: 12px; overflow: hidden; background: #161618; }
+.spotify { position: relative; height: 352px; border-radius: 12px; overflow: hidden; background: #1b1c1f; }
 .spotify-hold { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--dim); }
 .spotify iframe { position: relative; display: block; width: 100%; height: 352px; border: 0; }
 
