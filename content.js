@@ -30,7 +30,7 @@ window.SITE = {
 
   // CH 05 email sign-up. Web app link of the Google Apps Script that writes to
   // the "Inpha One fan list" sheet. While empty, the form opens an email instead.
-  signupUrl: "",
+  signupUrl: "https://script.google.com/macros/s/AKfycbxVpkRXAZafumLY0EUR-w7B3tFi-vkEx6faafqPeXACDxKsqGL89eE4mJmPR20EjJd4kg/exec",
 
   links: {
     spotify:   "https://open.spotify.com/artist/0F5VMlDz3p1ZcUj0ktYers",
