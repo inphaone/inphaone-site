@@ -20,7 +20,7 @@
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="preload" href="fonts/vt323.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="img/hero-1200.webp" as="image" imagesrcset="img/hero-1200.webp 1200w, img/hero-2400.webp 2400w" imagesizes="100vw">
-<link rel="stylesheet" href="css/style.css?v=7">
+<link rel="stylesheet" href="css/style.css?v=8">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"MusicGroup","name":"Inpha One","url":"https://inphaone.com/","foundingDate":"2019","foundingLocation":"Sydney, Australia","email":"inphaone@gmail.com","sameAs":["https://open.spotify.com/artist/0F5VMlDz3p1ZcUj0ktYers","https://www.youtube.com/@inphaone","https://instagram.com/inpha_one","https://www.facebook.com/InphaOne/"]}
 </script>
@@ -67,14 +67,21 @@
     <h2>CH 01 · LISTEN</h2>
     <div class="listen">
         <div class="deck" id="deck">
-          <div class="deck-top"><span>&#9654; now playing</span><span>REC &#9679;</span></div>
+          <div class="deck-top"><span id="deck-state">&#10074;&#10074; paused</span><span>REC &#9679;</span></div>
+          <span class="deck-title split" id="deck-title">NORTH STAR</span>
+          <span class="muted small" id="deck-meta">Inpha One · Single 2024</span>
           <div class="eq" aria-hidden="true">
             <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
           </div>
+          <div class="deck-bar" aria-hidden="true"><i id="deck-prog"></i></div>
           <div class="deck-actions">
-            <button type="button" class="btn btn-small" id="play-spotify">PLAY &#9654;</button>
-            <a class="small" href="https://open.spotify.com/artist/0F5VMlDz3p1ZcUj0ktYers" data-link="spotify" target="_blank" rel="noopener">Listen on Spotify</a>
+            <button type="button" class="btn-ghost" id="deck-prev" aria-label="Previous song">&#9664;&#9664;</button>
+            <button type="button" class="btn btn-small deck-play" id="deck-play">PLAY &#9654;</button>
+            <button type="button" class="btn-ghost" id="deck-next" aria-label="Next song">&#9654;&#9654;</button>
+            <span class="deck-time" id="deck-time">00:00</span>
           </div>
+          <div class="spotify-strip"><div id="spotify-embed"></div></div>
+          <a class="small" href="https://open.spotify.com/artist/0F5VMlDz3p1ZcUj0ktYers" data-link="spotify" target="_blank" rel="noopener">More Inpha One on Spotify</a>
         </div>
     </div>
   </section>
@@ -189,7 +196,7 @@
   </div>
 </footer>
 
-<script src="content.js?v=7"></script>
-<script src="js/site.js?v=7"></script>
+<script src="content.js?v=8"></script>
+<script src="js/site.js?v=8"></script>
 </body>
 </html>
