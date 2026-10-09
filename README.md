@@ -20,3 +20,5 @@ The website of Inpha One, a band from Sydney. Plain static files served by GitHu
 - **Email list:** set `kitFormId` in `content.js`. Until it is set, the form opens an email to the band instead.
 
 Every push to `main` goes live within a minute or two.
+
+**Cache:** after changing `css/style.css`, `js/site.js` or `content.js`, bump the `?v=` number on their links in `index.html` so browsers fetch the new version straight away.

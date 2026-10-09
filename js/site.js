@@ -5,6 +5,15 @@
   function $(id) { return document.getElementById(id); }
   function esc(t) { return String(t == null ? "" : t).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 
+  /* banner: start the glitch once the photo is on screen, so the first burst is seen */
+  var hero = document.querySelector(".hero"), heroImg = document.querySelector(".hero-img");
+  function go() { if (hero) hero.classList.add("go"); }
+  if (heroImg && !heroImg.complete) {
+    heroImg.addEventListener("load", go);
+    heroImg.addEventListener("error", go);
+    setTimeout(go, 4000);
+  } else { go(); }
+
   /* year */
   var y = $("year"); if (y) y.textContent = new Date().getFullYear();
 
