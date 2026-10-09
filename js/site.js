@@ -120,11 +120,14 @@
     var input = $("fan-email"), email = (input.value || "").trim();
     msg.textContent = "";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg.textContent = "That email doesn't look right. Try again?"; input.focus(); return; }
-    if (S.kitFormId) {
-      var body = new FormData(); body.append("email_address", email);
-      fetch("https://app.kit.com/forms/" + encodeURIComponent(S.kitFormId) + "/subscriptions", { method: "POST", body: body, mode: "no-cors" })
+    var trap = form.querySelector("[name=website]");
+    if (trap && trap.value) { done(); return; }
+    if (S.signupUrl) {
+      var btn = form.querySelector("button"); btn.disabled = true;
+      var body = new URLSearchParams({ email: email, source: "website" });
+      fetch(S.signupUrl, { method: "POST", body: body, mode: "no-cors" })
         .then(done)
-        .catch(function () { msg.textContent = "Signal lost. Please try again in a moment."; });
+        .catch(function () { btn.disabled = false; msg.textContent = "Signal lost. Please try again in a moment."; });
     } else {
       var to = (S.links && S.links.email) || "inphaone@gmail.com";
       window.location.href = "mailto:" + to + "?subject=" + encodeURIComponent("Keep me in touch") + "&body=" + encodeURIComponent("Please add " + email + " to the Inpha One list.");

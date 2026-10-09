@@ -158,6 +158,7 @@ main { max-width: 1160px; margin: 0 auto; padding: 0 var(--gutter); }
 #signup { display: flex; flex-wrap: wrap; gap: 10px; }
 #signup input { flex: 1 1 240px; min-width: 0; min-height: 48px; padding: 10px 14px; background: var(--bg); color: var(--ink); border: 1px solid #4a4840; font-family: var(--mono); font-size: 16px; border-radius: 0; }
 #signup input::placeholder { color: #6d6a60; }
+.trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .received { font-family: var(--pixel); font-size: 30px; line-height: 1.1; color: var(--accent); }
 .form-msg { font-size: 13px; color: #ff8fa3; min-height: 0; }
 .form-msg:empty { display: none; }

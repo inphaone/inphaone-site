@@ -28,9 +28,9 @@ window.SITE = {
     }
   ],
 
-  // CH 05 email sign-up. Paste the Kit form id here once the Kit account exists.
-  // While it is empty, the form falls back to opening an email to the band.
-  kitFormId: "",
+  // CH 05 email sign-up. Web app link of the Google Apps Script that writes to
+  // the "Inpha One fan list" sheet. While empty, the form opens an email instead.
+  signupUrl: "",
 
   links: {
     spotify:   "https://open.spotify.com/artist/0F5VMlDz3p1ZcUj0ktYers",
