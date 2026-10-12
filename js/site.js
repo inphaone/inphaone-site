@@ -138,7 +138,7 @@
         .then(done)
         .catch(function () { btn.disabled = false; msg.textContent = "Signal lost. Please try again in a moment."; });
     } else {
-      var to = (S.links && S.links.email) || "inphaone@gmail.com";
+      var to = (S.links && S.links.email) || "booking@inphaone.com";
       window.location.href = "mailto:" + to + "?subject=" + encodeURIComponent("Keep me in touch") + "&body=" + encodeURIComponent("Please add " + email + " to the Inpha One list.");
       done();
     }

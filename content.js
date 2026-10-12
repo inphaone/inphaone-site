@@ -37,6 +37,6 @@ window.SITE = {
     youtube:   "https://www.youtube.com/@inphaone",
     instagram: "https://instagram.com/inpha_one",
     facebook:  "https://www.facebook.com/InphaOne/",
-    email:     "inphaone@gmail.com"
+    email:     "booking@inphaone.com"
   }
 };
