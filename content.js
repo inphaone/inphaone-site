@@ -11,14 +11,24 @@ window.SITE = {
     headline: "NEW ALBUM · 2027"
   },
 
-  // CH 02 video. id is the part after youtu.be/
+  // CH 03 video. id is the part after youtu.be/
   video: {
     id: "W3c4xrvIa-o",
     title: "INDUSTRY 62"
   },
 
-  // CH 03 shows
+  // CH 01 shows. poster is optional: a square image shown next to an upcoming show,
+  // posterFull is the original poster it opens when clicked.
   shows: [
+    {
+      date: "2026-11-14",
+      event: "Progressive Metal Night",
+      venue: "Dead Set, Darlinghurst",
+      with: "Paint the Air, Visor Guy",
+      tickets: "",
+      poster: "img/show-2026-11-14",
+      posterFull: "img/show-2026-11-14-poster.jpg"
+    },
     {
       date: "2026-06-20",
       event: "The Prog Prom",

@@ -96,7 +96,21 @@
     }
     var up = S.shows.filter(function (s) { return parse(s.date) >= today; }).sort(function (a, b) { return parse(a.date) - parse(b.date); });
     var past = S.shows.filter(function (s) { return parse(s.date) < today; }).sort(function (a, b) { return parse(b.date) - parse(a.date); });
-    var html = up.length ? "<div class=\"upcoming\">" + up.map(row).join("") + "</div>" : "<p class=\"nosignal\">NO SIGNAL · nothing announced right now</p>";
+    var DAYS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+    function gig(s) {
+      var d = parse(s.date), where = esc(s.event);
+      var img = "<img src=\"" + esc(s.poster) + "-1000.webp\" srcset=\"" + esc(s.poster) + "-600.webp 600w, " + esc(s.poster) + "-1000.webp 1000w\" sizes=\"(max-width: 760px) 100vw, 440px\" width=\"1000\" height=\"1000\" alt=\"Poster for " + esc(s.event) + "\" loading=\"lazy\">";
+      if (s.posterFull) img = "<a class=\"gig-art\" href=\"" + esc(s.posterFull) + "\" target=\"_blank\" rel=\"noopener\" aria-label=\"Open the full poster\">" + img + "</a>";
+      else img = "<div class=\"gig-art\">" + img + "</div>";
+      return "<article class=\"gig\">" + img + "<div class=\"gig-text\">" +
+        "<p class=\"gig-date split\">" + DAYS[d.getDay()] + " " + esc(fmt(s.date)) + "</p>" +
+        "<h3 class=\"gig-event\">" + where + "</h3>" +
+        (s.venue ? "<p class=\"gig-venue\">" + esc(s.venue) + "</p>" : "") +
+        (s.with ? "<p class=\"gig-with\">with " + esc(s.with) + "</p>" : "") +
+        (s.tickets ? "<a class=\"btn\" href=\"" + esc(s.tickets) + "\" target=\"_blank\" rel=\"noopener\">TICKETS &#9654;</a>" : "") +
+        "</div></article>";
+    }
+    var html = up.length ? "<div class=\"upcoming\">" + up.map(function (s) { return s.poster ? gig(s) : row(s); }).join("") + "</div>" : "<p class=\"nosignal\">NO SIGNAL · nothing announced right now</p>";
     if (past.length) html += "<p class=\"shows-head\">PAST TRANSMISSIONS</p><div class=\"past\">" + past.map(row).join("") + "</div>";
     list.innerHTML = html;
   }
